@@ -1,0 +1,30 @@
+// tkRemoveUnknownPlugins.mel
+
+string $plugList[];
+$plugList = `unknownPlugin -q -list`;
+
+if (size($plugList) != 0)
+{
+    // list all unknown plugs:
+    print "\n unknown plugins: \n";
+    for ($plug in $plugList)
+        print ($plug + "\n");
+
+    // remove unknown plugs:
+    for ($plug in $plugList)
+        unknownPlugin -remove $plug;
+
+    // check remaining unknown plugs:
+    string $plugList[];
+    $plugList = `unknownPlugin -q -list`;
+
+    if (size($plugList) == 0)
+        print "\n All unknown plugins removed";
+    else
+        print "\n still unknown plugins in the scene";
+}
+
+else
+    print "\n no unknown plugins found";
+
+    
